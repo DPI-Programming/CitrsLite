@@ -14,13 +14,13 @@ namespace CitrsLite.Business.Repositories
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private CitrsLiteContext _context;
-        private GenericRepository<Budwood> budwoods;
-        private GenericRepository<Participant> participants;
-        private GenericRepository<Registration> registrations;
-        private GenericRepository<Tree> trees;
-        private GenericRepository<TreeLocation> treeLocations;
-        private GenericRepository<TreeType> treeTypes;
-        private GenericRepository<VarietyClone> varietyClones;
+        private GenericRepository<Budwood> _budwoods;
+        private GenericRepository<Participant> _participants;
+        private GenericRepository<Registration> _registrations;
+        private GenericRepository<Tree> _trees;
+        private GenericRepository<TreeLocation> _treeLocations;
+        private GenericRepository<TreeType> _treeTypes;
+        private GenericRepository<VarietyClone> _varietyClones;
 
         public UnitOfWork(string connectionString)
         {
@@ -34,12 +34,12 @@ namespace CitrsLite.Business.Repositories
         {
             get
             {
-                if (this.budwoods == null)
+                if (this._budwoods == null)
                 {
-                    this.budwoods = new GenericRepository<Budwood>(_context);
+                    this._budwoods = new GenericRepository<Budwood>(_context);
                 }
 
-                return budwoods;
+                return _budwoods;
             }
         }
 
@@ -47,12 +47,12 @@ namespace CitrsLite.Business.Repositories
         {
             get
             {
-                if (this.participants == null)
+                if (this._participants == null)
                 {
-                    this.participants = new GenericRepository<Participant>(_context);
+                    this._participants = new GenericRepository<Participant>(_context);
                 }
 
-                return participants;
+                return _participants;
             }
         }
 
@@ -60,12 +60,12 @@ namespace CitrsLite.Business.Repositories
         {
             get
             {
-                if (this.registrations == null)
+                if (this._registrations == null)
                 {
-                    this.registrations = new GenericRepository<Registration>(_context);
+                    this._registrations = new GenericRepository<Registration>(_context);
                 }
 
-                return registrations;
+                return _registrations;
             }
         }
 
@@ -73,12 +73,12 @@ namespace CitrsLite.Business.Repositories
         {
             get
             {
-                if (this.trees == null)
+                if (this._trees == null)
                 {
-                    this.trees = new GenericRepository<Tree>(_context);
+                    this._trees = new GenericRepository<Tree>(_context);
                 }
 
-                return trees;
+                return _trees;
             }
         }
 
@@ -86,12 +86,12 @@ namespace CitrsLite.Business.Repositories
         {
             get
             {
-                if (this.treeLocations == null)
+                if (this._treeLocations == null)
                 {
-                    this.treeLocations = new GenericRepository<TreeLocation>(_context);
+                    this._treeLocations = new GenericRepository<TreeLocation>(_context);
                 }
 
-                return treeLocations;
+                return _treeLocations;
             }
         }
 
@@ -99,12 +99,12 @@ namespace CitrsLite.Business.Repositories
         {
             get
             {
-                if (this.treeTypes == null)
+                if (this._treeTypes == null)
                 {
-                    this.treeTypes = new GenericRepository<TreeType>(_context);
+                    this._treeTypes = new GenericRepository<TreeType>(_context);
                 }
 
-                return treeTypes;
+                return _treeTypes;
             }
         }
 
@@ -112,12 +112,12 @@ namespace CitrsLite.Business.Repositories
         {
             get
             {
-                if (this.varietyClones == null)
+                if (this._varietyClones == null)
                 {
-                    this.varietyClones = new GenericRepository<VarietyClone>(_context);
+                    this._varietyClones = new GenericRepository<VarietyClone>(_context);
                 }
 
-                return varietyClones;
+                return _varietyClones;
             }
         }
 

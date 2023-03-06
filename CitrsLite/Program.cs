@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
+    
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,14 +23,16 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
+builder.Services.AddMudServices();
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>(u => 
-    new UnitOfWork(connectionString: builder.Configuration.GetConnectionString("CitrsDatabase")));
+    new UnitOfWork(connectionString: builder.Configuration.GetConnectionString("CitrsDatabase")!));
 builder.Services.AddSingleton<ParticipantService, ParticipantService>(p => 
-    new ParticipantService(connectionString: builder.Configuration.GetConnectionString("CitrsDatabase")));
+    new ParticipantService(connectionString: builder.Configuration.GetConnectionString("CitrsDatabase")!));
 
 builder.Services.AddScoped<VarietyCloneFormViewModel>();
 builder.Services.AddScoped<ParticipantFormViewModel>();

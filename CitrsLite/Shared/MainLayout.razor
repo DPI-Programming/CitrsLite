@@ -1,20 +1,71 @@
 ﻿@inherits LayoutComponentBase
 
-<PageTitle>CitrsLite</PageTitle>
+<MudThemeProvider Theme="CustomTheme"/>
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<MudLayout>
+    <MudAppBar Color="Color.Inherit" Elevation="4">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" 
+                       Color="Color.Inherit" 
+                       Edge="Edge.Start" 
+                       OnClick="@((e) => DrawerToggle())" />
+        CITRS Lite
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen" 
+               Variant="DrawerVariant.Mini" 
+               Color="Color.Secondary" 
+               ClipMode="DrawerClipMode.Always" 
+               Elevation="3">
+        <MudNavMenu>
+            <MudNavLink Href="/" 
+                        Match="NavLinkMatch.All" 
+                        Icon="@Icons.Material.Filled.Dashboard" 
+                        IconColor="Color.Default">
+                Dashboard
+            </MudNavLink>
+            <MudNavLink Href="/Participant/Add" 
+                        Match="NavLinkMatch.Prefix" 
+                        Icon="@Icons.Material.Filled.People" 
+                        IconColor="Color.Default">
+                Participants
+            </MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
 
-    <main>
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+@code {
+    bool _drawerOpen = true;
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    MudTheme CustomTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Primary = Colors.Blue.Lighten3,
+            Secondary = Colors.Green.Darken1,
+            AppbarBackground = Colors.Orange.Default,
+            Background = Colors.Amber.Lighten5,
+            AppbarText = Colors.Shades.Black,
+            Divider = Colors.Shades.Black,
+            DrawerIcon= Colors.Grey.Lighten4
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Secondary = Colors.Green.Darken2,
+            AppbarBackground = Colors.Orange.Darken3
+        },
+        LayoutProperties = new LayoutProperties()
+        {
+            DrawerWidthLeft = "260px",
+            DrawerWidthRight = "300px"
+        }
+    };
+}
