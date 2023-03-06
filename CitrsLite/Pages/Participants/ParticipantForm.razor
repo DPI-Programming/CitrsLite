@@ -1,13 +1,146 @@
 ﻿@page "/participant/add"
 @using CitrsLite.Business.ViewModels.ParticipantViewModels
 @using CitrsLite.Business.Enums
+@using MudBlazor
+@using MudBlazor.Extensions
+@using MudBlazor.Extensions.Components
+@using MudBlazor.Extensions.Components.ObjectEdit
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Components.Authorization
 @inject CitrsLite.Business.Services.ParticipantService participantService
+@inject ParticipantFormViewModel model
 @inject AuthenticationStateProvider authenticationStateProvider
 
 <h2>Participant Form</h2>
 
-<EditForm Model=@Model OnValidSubmit="CreateParticipant">
+<MudCard Elevation=1>
+    <MudText Typo="Typo.h4"
+             Class="p-2"
+             Style="font-weight: bold; background-color: navajowhite">Participant Form</MudText>
+</MudCard>
+
+<MudItem xs="12" md="12" Class="d-flex flex-wrap mt-4">
+    <div class="d-flex flex-wrap mr-4 mb-8">
+        <MudCard Elevation=2 Outlined="true" xs="5" md="5" Style="background-color: floralwhite">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5" Class="fw-bold">Add New Participant</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+
+            @*<MudDivider DividerType="DividerType.FullWidth" Class="my-0" />*@
+
+            <MudCardContent Class="pa-3 ma-0" Style="width:360px;">
+                <EditForm Model=@model OnValidSubmit="@SubmitForm">
+                    <MudTextField @bind-Value="model.Name"
+                                  Label="Participant Name"
+                                  Variant="Variant.Filled"
+                                  For="(() => model.Name)"></MudTextField>
+
+                    <MudTextField @bind-Value="model.Type"
+                                  Label="Participant Type"
+                                  Variant="Variant.Filled"
+                                  For="(() => model.Type)"></MudTextField>
+
+                    <MudTextField @bind-Value="model.Address"
+                                  Label="Participant Address"
+                                  Variant="Variant.Filled"
+                                  For="(() => model.Address)"></MudTextField>
+
+                    <MudTextField @bind-Value="model.City"
+                                  Label="Participant City"
+                                  Variant="Variant.Filled"
+                                  For="(() => model.City)"></MudTextField>
+
+                    <MudTextField @bind-Value="model.State"
+                                  Label="Participant State"
+                                  Variant="Variant.Filled"
+                                  For="(() => model.State)"></MudTextField>
+
+                    <MudTextField @bind-Value="model.PhoneNumber"
+                                  Label="Participant Phone Number"
+                                  Variant="Variant.Filled"
+                                  For="(() => model.PhoneNumber)"></MudTextField>
+
+                    <MudTextField T="string"
+                                  Label="Description"
+                                  @bind-Value="model.Description"
+                                  Variant="Variant.Filled"
+                                  Class="mt-2"
+                                  Lines="10"
+                                  For="(() => model.Description)" />
+
+                    <MudSwitch @bind-Checked="@model.IsActive"
+                               Label="Active?"                               
+                               ThumbIcon="@(model.IsActive==true ? Icons.Material.Filled.Done : Icons.Material.Filled.Close)"
+                               ThumbIconColor="@(model.IsActive==true ? Color.Success : Color.Error)"
+                               Class="mr-n2 mb-6" />
+
+                    <MudButton ButtonType="ButtonType.Submit"
+                               Class="mt-4 float-end mb-4"
+                               Variant="Variant.Filled"
+                               StartIcon="@Icons.Material.Filled.Save"
+                               Color="Color.Success">
+                        Submit
+                    </MudButton>
+
+                    <MudItem>@Message</MudItem>
+                </EditForm>
+            </MudCardContent>
+        </MudCard>
+
+        <MudDivider Vertical="true" />
+
+        <MudCard Elevation=0
+                 Outlined="false" xs="7" md="7"
+                 Class="ml-5 pa-0 mx-lg-4"
+                 Style="background-color: antiquewhite">
+            <MudTable Items="@Participants" Hover="true" Dense="true" Striped="true">
+                <ColGroup>
+                    <col />
+                    <col />
+                    <col style="width: 30rem;" />
+                    <col />
+                    <col />
+                </ColGroup>
+                <ToolBarContent>
+                    <MudText Typo="Typo.h6">Participant List</MudText>
+                    <MudSpacer />
+                    <MudTextField @bind-Value="searchString1"
+                                  Placeholder="Search"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium" Class="mt-0">
+                    </MudTextField>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh>Name</MudTh>
+                    <MudTh>Type</MudTh>
+                    <MudTh>City</MudTh>
+                    <MudTh>State</MudTh>
+                    <MudTh>Phone #</MudTh>
+                    <MudTh Style="text-align:center">Status</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                    <MudTd DataLabel="Description">@context.Type</MudTd>
+                    <MudTd DataLabel="Description">@context.City</MudTd>
+                    <MudTd DataLabel="Description">@context.State</MudTd>
+                    <MudTd DataLabel="Description">@context.PhoneNumber</MudTd>
+                    <MudTd DataLabel="Status">@context.IsActive</MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+            </MudTable>
+        </MudCard>
+    </div>
+</MudItem>
+
+
+
+@*<EditForm Model=@Model OnValidSubmit="CreateParticipant">
     <label>
         <h4>Name</h4>
         <InputText @bind-Value=Model.Name></InputText>
@@ -55,23 +188,10 @@
     <input type="submit" class="btn btn-primary" value="Save"/>
     <p></p>
     <div>@Message</div>
-</EditForm>
+</EditForm>*@
 
 @code {
-    private String Message = String.Empty;
+    
 
-    public void CreateParticipant()
-    {
-        participantService.CreateAysnc(Model);
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
-
-        Model.UserName = authState.User.Identity?.Name ?? "Unknown user";
-    }
-
-    [Inject]
-    public ParticipantFormViewModel Model { get; set; }
+    
 }
