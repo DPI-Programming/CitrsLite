@@ -12,7 +12,6 @@
 @inject ParticipantFormViewModel model
 @inject AuthenticationStateProvider authenticationStateProvider
 
-<h2>Participant Form</h2>
 
 <MudCard Elevation=1>
     <MudText Typo="Typo.h4"
@@ -29,14 +28,12 @@
                 </CardHeaderContent>
             </MudCardHeader>
 
-            @*<MudDivider DividerType="DividerType.FullWidth" Class="my-0" />*@
-
             <MudCardContent Class="pa-3 ma-0" Style="width:360px;">
-                <EditForm Model=@model @*OnValidSubmit="@SubmitForm"*@>
-                    <MudTextField @bind-Value="model.Name"
+                <EditForm Model=@model > @*Add OnValidSubmit="@SubmitForm"*@
+                    <MudText @bind-Value="model.Name"
                                   Label="Participant Name"
                                   Variant="Variant.Filled"
-                                  For="(() => model.Name)"></MudTextField>
+                                  For="(() => model.Name)"></MudText>
 
                     <MudTextField @bind-Value="model.Type"
                                   Label="Participant Type"
@@ -191,7 +188,4 @@
 </EditForm>*@
 
 @code {
-    
-
-    
 }

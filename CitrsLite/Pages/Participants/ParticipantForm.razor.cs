@@ -10,7 +10,7 @@ using MudBlazor;
 namespace CitrsLite.Pages.Participants
 
 {
-    public class ParticipantForm
+    public partial class ParticipantForm
     {
         [Inject]
         protected ParticipantService ParticipantService { get; set; }
