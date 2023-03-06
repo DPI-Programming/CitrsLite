@@ -30,9 +30,9 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>(u => 
-    new UnitOfWork(connectionString: builder.Configuration.GetConnectionString("CitrsDatabase")));
+    new UnitOfWork(connectionString: builder.Configuration.GetConnectionString("CitrsDatabase")!));
 builder.Services.AddSingleton<ParticipantService, ParticipantService>(p => 
-    new ParticipantService(connectionString: builder.Configuration.GetConnectionString("CitrsDatabase")));
+    new ParticipantService(connectionString: builder.Configuration.GetConnectionString("CitrsDatabase")!));
 
 builder.Services.AddScoped<VarietyCloneFormViewModel>();
 builder.Services.AddScoped<ParticipantFormViewModel>();
