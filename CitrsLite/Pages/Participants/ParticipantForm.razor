@@ -3,8 +3,8 @@
 @using CitrsLite.Business.Enums
 @using MudBlazor
 @using MudBlazor.Extensions
-@using MudBlazor.Extensions.Components
-@using MudBlazor.Extensions.Components.ObjectEdit
+@*@using MudBlazor.Extensions.Components
+@using MudBlazor.Extensions.Components.ObjectEdit*@
 @using System.Text.RegularExpressions
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Components.Authorization
@@ -32,7 +32,7 @@
             @*<MudDivider DividerType="DividerType.FullWidth" Class="my-0" />*@
 
             <MudCardContent Class="pa-3 ma-0" Style="width:360px;">
-                <EditForm Model=@model OnValidSubmit="@SubmitForm">
+                <EditForm Model=@model @*OnValidSubmit="@SubmitForm"*@>
                     <MudTextField @bind-Value="model.Name"
                                   Label="Participant Name"
                                   Variant="Variant.Filled"
